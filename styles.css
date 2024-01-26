@@ -1,0 +1,183 @@
+body {
+  background: rgb(131, 58, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(253, 29, 29, 1) 50%,
+    rgba(252, 176, 69, 1) 100%
+  );
+  max-width: 900px;
+  min-width: 400px;
+  width: 90%;
+  margin: 20px auto;
+  font-family: verdana, helvetica;
+  font-size: 0.8rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  font-family: verdana, helvetica;
+  text-align: center;
+  font-weight: 600px;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  backdrop-filter: blur(100px);
+}
+
+.header-div {
+  width: 90%;
+  max-width: 400px;
+}
+
+.date-container {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-container-text {
+  width: 40%;
+  max-width: 160px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 4px 0 0 8px;
+}
+
+.input-record-date {
+  min-width: calc(100% - 180px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  text-align: center;
+  border: none;
+}
+
+#life-variables-container {
+  width: 100%;
+}
+
+.life-variable {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 10px;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 10px 0;
+}
+
+.life-variable-separator {
+  border: 0;
+  width: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.life-variable-info {
+  width: 40%;
+
+  .variable-title {
+    font-weight: 800;
+    margin: 8px 0px 0px 8px;
+  }
+
+  .variable-description {
+    margin: 8px 0px 0px 8px;
+  }
+}
+
+.life-variable-select {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+
+  .input-label {
+    margin: 10px 0 5px 10px;
+  }
+
+  .range-container {
+    width: 100%;
+    margin: 5px 5px 5px 5px;
+
+    #moodInput {
+      width: 80%;
+    }
+
+    #rangeValue {
+      margin: 0 auto;
+    }
+  }
+}
+
+.input-text {
+  margin: 10px;
+  width: 90%;
+  line-height: 14px;
+  font-size: 12px;
+  word-wrap: break-word;
+  word-break: break-all;
+  border-radius: 10px;
+}
+
+.button-container {
+  display: flex;
+}
+
+.submit-button {
+  width: 89%;
+  height: 3rem;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 0 1% 0 0;
+  cursor: pointer;
+  border: none;
+}
+
+.download-button {
+  width: 9%;
+  height: 3rem;
+  border-radius: 5px;
+  margin: 0 0 0 1%;
+  background-color: rgb(46, 139, 87);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.addShadow {
+  box-shadow: 10px 5px 5px #0000001a;
+}
+
+/* DESIGN INPUT RANGE */
+
+input[type="range"] {
+  -webkit-appearance: none; /* Override default appearance */
+  width: 50%; /* Full-width */
+  height: 10px; /* Specified height */
+  background: rgb(228, 151, 27); /* Grey background */
+  outline: yes; /* Remove outline */
+  opacity: 0.9; /* Set transparency (cross-browser) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+  border-radius: 10px;
+  border: 1px solid #0000001a;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  width: 15px;
+  background-color: #f50;
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 10px rgba(255, 85, 0, 0.3);
+}
