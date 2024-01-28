@@ -6,13 +6,23 @@ const submitButton = document.getElementById("submit-button");
 const downloadButton = document.getElementById("download-button");
 const hiddenMenuButton = document.getElementById("hidden-menu-button");
 const calendarSubcontainer = document.getElementById("calendar-subcontainer");
+const buttonSwitchMonthLeft = document.getElementById("button-switch-month-left");
+const buttonSwitchMonthRight = document.getElementById("button-switch-month-right");
 
 const dataOutput = {};
+let displayYear = 2024;
+let displayMonth = 01;
 
 let resultsLinkedToDate =
-    JSON.parse(localStorage.getItem("dataRecorderData")) === null
-      ? {}
-      : JSON.parse(localStorage.getItem("dataRecorderData"));
+  JSON.parse(localStorage.getItem("dataRecorderData")) === null
+    ? {}
+    : JSON.parse(localStorage.getItem("dataRecorderData"));
+
+
+
+
+
+
 const lifeVariables = [
   {
     dataText: "Bed Time",
@@ -99,12 +109,12 @@ const displayVariables = () => {
         <p class="variable-description">${description}</p>
       </div>
       <hr class="life-variable-separator"/>
-      
+
       <div class="life-variable-select">
       <i class="gg-close"></i>
         <label for="${dataText.toLowerCase()}-input" class="input-label">${inputHelp}</label>
         <div class="range-container">
-        
+
           <input type="range" id="${dataText.toLowerCase()}-input" name="${dataText.toLowerCase()}-input" min="${
           optNumMinMax[0]
         }" max="${
@@ -112,7 +122,7 @@ const displayVariables = () => {
         }" value="${defaultValue}" oninput="updateValue(value, '${dataText.toLowerCase()}input-value')">
           <span id="${dataText.toLowerCase()}input-value">${defaultValue}</span>
           </div
-          
+
       </div>
     </div>
      `;
@@ -128,15 +138,15 @@ const displayVariables = () => {
       <hr class="life-variable-separator"/>
       <div class="life-variable-select">
       <i class="gg-close"></i>
-   
+
           <textarea id="${dataText.toLowerCase()}-input" rows="4" cols="50" class="input-text">${inputHelp}
         </textarea>
 
       </div>
     </div>
-          
-          
-          
+
+
+
           `;
         break;
 
@@ -171,46 +181,46 @@ const displayVariables = () => {
         <p class="variable-title">${dataText}</p>
         <p class="variable-description">${description}</p>
       </div>
-      
+
       <hr class="life-variable-separator"/>
-      
+
       <div class="life-variable-select">
         <i class="gg-close"></i>
         <label for="${dataText.toLowerCase()}-input" class="input-label">${inputHelp}</label>
         <input type="time" id="${dataText.toLowerCase()}-input" class="input-time" value="${defaultValue}">
-      
-          
+
+
       </div>
     </div>
-    
+
      `;
         break;
 
       case "minutes":
         lifeVariablesContainer.innerHTML += `
-        
+
         <div class="life-variable addShadow">
       <div class="life-variable-info">
         <p class="variable-title">${dataText}</p>
         <p class="variable-description">${description}</p>
       </div>
-      
+
       <hr class="life-variable-separator"/>
-      
+
       <div class="life-variable-select">
         <i class="gg-close"></i>
         <label for="${dataText.toLowerCase()}-input" class="input-label">${inputHelp}</label>
         <input type="number" id="${dataText.toLowerCase()}-input" class="input-number" value="${defaultValue}">
-      
-          
+
+
       </div>
     </div>
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         `;
         break;
     }
@@ -295,13 +305,9 @@ function submitForm() {
 
   
 
-  console.log("test2");
-  console.log(resultsLinkedToDate);
-
   resultsLinkedToDate[date] = getResults();
 
-  console.log("test3");
-  console.log(resultsLinkedToDate);
+ 
   localStorage.setItem("dataRecorderData", JSON.stringify(resultsLinkedToDate));
   return resultsLinkedToDate;
 }
@@ -320,8 +326,8 @@ const reshapeResultsToExportFormat = () => {
 };
 
 submitButton.addEventListener("click", () => {
-  submitForm()
-  displayCalendar(01,2024);
+  submitForm();
+  displayCalendar(currentMonth,currentYear );
 });
 
 downloadButton.addEventListener("click", () => {
@@ -346,51 +352,80 @@ function exportResultsToExcel(results) {
 
 /// CALENDAR
 
- 
-  // Prints a month(P1) of a given year (P2) in the calendarSubcontainer; each day has an Id with the format "yyyy-mm-dd"
-  const displayCalendar = (month, year) => {
-    const printWeekDaysHeader = () => {
-      for (let i = 0; i < 7; i++) {
-        calendarSubcontainer.innerHTML += `<div class="week-day-header">${
-          ["M", "T", "W", "T", "F", "S", "S"][i]
-        }</div>`;
+// Prints a month(P1) of a given year (P2) in the calendarSubcontainer; each day has an Id with the format "yyyy-mm-dd"
+const displayCalendar = (month, year) => {
+  calendarSubcontainer.innerHTML = "";
+  const printWeekDaysHeader = () => {
+    for (let i = 0; i < 7; i++) {
+      calendarSubcontainer.innerHTML += `<div class="week-day-header">${
+        ["M", "T", "W", "T", "F", "S", "S"][i]
+      }</div>`;
+    }
+  };
+
+  const printNumberDays = () => {
+    for (let i = 1; i < daysInMonth + firstDayOfMonth; i++) {
+      const day = i - firstDayOfMonth + 1;
+
+      calendarSubcontainer.innerHTML += `<div id="day-id-${year}-${month}-${day}" class="day-number">${
+        i - firstDayOfMonth + 1 >= 1 ? day : ""
+      }</div>`;
+
+      if (resultsLinkedToDate[formatDate(year, month, day)] !== undefined) {
+        document
+          .getElementById(`day-id-${year}-${month}-${day}`)
+          .classList.add("recorded-date");
       }
-    };
+    }
+  };
 
-    const printNumberDays = () => {
-      for (let i = 1; i < daysInMonth + firstDayOfMonth; i++) {
-        const day = i - firstDayOfMonth + 1;
+  const numberOfCellsInGrid = 42; //6*7
+  const daysInMonth = getDaysInMonth(year, month);
+  const firstDayOfMonth = getFirstDayOfMonth(year, month);
 
-        calendarSubcontainer.innerHTML += `<div id="day-id-${year}-${month}-${day}" class="day-number">${
-          i - firstDayOfMonth + 1 >= 0 ? day : 0
-        }</div>`;
-        
-        
-        
-        
-        if(resultsLinkedToDate[formatDate(year,month,day)]!== undefined){
-          document.getElementById(`day-id-${year}-${month}-${day}`).classList.add("recorded-date")
-        } 
-      }
-    };
+  printWeekDaysHeader();
+  printNumberDays();
+};
 
-    const numberOfCellsInGrid = 42; //6*7
-    const daysInMonth = getDaysInMonth(year, month);
-    const firstDayOfMonth = getFirstDayOfMonth(year, month);
 
-    printWeekDaysHeader();
-    printNumberDays();
-    
+// Base Display as App Opens - To switch to current Date
+
+displayCalendar(displayMonth, displayYear);
+
+const changeCalendarMonth = (direction) => {
+
+  if (direction === "left") {
+    displayMonth--;
+    if (displayMonth < 1) {
+      displayMonth = 12;
+      displayYear--;
+    }
+  } else if (direction === "right") {
+    displayMonth++;
+    if (displayMonth > 12) {
+      displayMonth = 1;
+      displayYear++;
+    }
   }
+  displayCalendar(displayMonth, displayYear);
+  console.log(displayMonth)
+  console.log(displayYear)
   
+  document.getElementById("calendar-container-text-year").textContent = displayYear;
+  document.getElementById("calendar-container-text-month").textContent = monthsList[displayMonth - 1];;
+
   
 
+};
 
-displayCalendar(01,2024)
+buttonSwitchMonthLeft.addEventListener("click",()=> {changeCalendarMonth("left")})
+
+buttonSwitchMonthRight.addEventListener("click", ()=>{changeCalendarMonth("right")})
 
 
 
-// UTILITY FUNCTIONS
+
+// UTILITY FUNCTIONS / Variables
 
 function getDaysInMonth(year, month) {
   // The month argument in JavaScript is zero-based, so we subtract 1 from the input month.
@@ -407,12 +442,17 @@ function getFirstDayOfMonth(year, month) {
 
 function formatDate(year, month, day) {
   // Ensure month and day are two digits
-  month = String(month).padStart(2, '0');
-  day = String(day).padStart(2, '0');
+  month = String(month).padStart(2, "0");
+  day = String(day).padStart(2, "0");
 
   // Combine the parts into the "YYYY-MM-DD" format
   const formattedDate = `${year}-${month}-${day}`;
-  
+
   return formattedDate;
 }
 
+const monthsList = [
+  "January", "February", "March", "April",
+  "May", "June", "July", "August",
+  "September", "October", "November", "December"
+]
