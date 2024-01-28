@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- TODO
+
+> Responsive Design 
+> calendar
+ >> button moves you to calendar
+ >> Button to change Calendar Month
+ >> Click on calendar to see inputs
+>variables
+ >> Ad more
+ >> Delete Button
+ >> Implement Variable Add function
+ >> Move by dragging
+>Downlaod
+  You can download without entering a value
+
+
+-->
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +30,8 @@
   <link type="text/css" rel="stylesheet" href="./stylesheet.css" />
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/close.css' rel='stylesheet'>
   <link href='https://unpkg.com/css.gg@2.0.0/icons/css/calendar.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-right.css' rel='stylesheet'>
+  <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrow-left.css' rel='stylesheet'>
 
   <title>Simple Data Recorder</title>
 </head>
@@ -47,7 +67,19 @@
 
   </div>
   <hr />
+
   <div class="calendar-container">
+    <div>
+      <div class="calendar-container-text">
+        <span class="calendar-container-text-month" id="calendar-container-text-month">January</span>
+        <span class="calendar-container-text-year" id="calendar-container-text-year">2024</span>
+        <div class="calendar-month-switch-container">
+          <button class="button-switch-month" id="button-switch-month-left">L</button>
+          <button class="button-switch-month" id="button-switch-month-right">R</button>
+        </div>
+      </div>
+    </div>
+    <hr />
 
     <div class="calendar-subcontainer" id="calendar-subcontainer">
 
