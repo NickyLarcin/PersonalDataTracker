@@ -40,30 +40,37 @@ header {
 
 .header-div {
   width: 90%;
+
   min-height: 80px;
-  max-width: 400px;
   backface-visibility: hidden;
   display: flex;
   justify-content: center;
 }
 
+@media (max-width: 460px) {
+  header {
+    font-size: 1rem;
+  }
+
+  .header-div {
+    min-height: 40px;
+  }
+}
+
 h1 {
   margin: 10px;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  
 }
 
 .calendar-page-button {
-  width: 50px;
-  height: 50px;
-  position: absolute;
+  width: 10%;
   display: flex;
-  right: 2%;
-  top: 25%;
+  justify-content: center;
 
   .gg-calendar {
     transform: scale(1.8);
-    position: absolute;
-    top: 30%;
-    left: 30%;
   }
 
   .gg-calendar:hover {
@@ -84,19 +91,19 @@ h1 {
 }
 
 .date-container-text {
-  width: 40%;
-  max-width: 180px;
+  width: 30%;
+  min-width: 170px;
   background-color: var(--BlueGrayP);
-  border-radius: 5px;
+  border-radius: 5px 0px 0px 5px;
   padding: 15px 0 0 15px;
   font-weight: 500;
   color: var(--aliceWhiteP);
 }
 
 .input-record-date {
-  min-width: calc(100% - 220px);
+  width: 80%;
   background-color: var(--BlueGrayP);
-  border-radius: 5px;
+  border-radius: 0px 5px 5px 0px;
   text-align: center;
   border: none;
   color: var(--aliceWhiteP);
@@ -150,6 +157,7 @@ h1 {
 
   .input-label {
     margin: 10px 0 5px 10px;
+    width: 80%;
     color: var(--aliceWhiteP);
   }
 
@@ -165,7 +173,7 @@ h1 {
 
 .gg-close {
   position: absolute !important;
-  right:1%;
+  right: 1%;
   top: 4%;
   transform: scale(0.6) !important;
 }
@@ -277,28 +285,69 @@ input[type="range"]::-webkit-slider-thumb:hover {
   box-shadow: 0 0 0 10px var(--turquoiseOpacityHalf);
 }
 
+
+/* CALENDAR AREA */
+
+.calendar-container-text{
+
+  width: 100%;
+  height: 50px;
+  background-color: var(--BlueGrayP);
+  border-radius: 5px 5px 0px 0px;
+  position:relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: var(--aliceWhiteP);
+  
+}
+
+.calendar-container-text-month{
+  margin-right: 5px;
+}
+
+.calendar-month-switch-container{
+  position : absolute;
+  right: 5%;
+  top:50%;
+  transform: translateY(-50%);
+}
+
+.button-switch-month{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--BlueGray);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  color: var(--aliceWhiteP);
+  position:relative;
+}
+
+
 .calendar-subcontainer {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  row-gap:5px;
+  row-gap: 5px;
   margin: 10px;
 }
 
-.recorded-date{
+.recorded-date {
   color: orange;
-  font-weight:800;
+  font-weight: 800;
 }
 
-.week-day-header{
-  font-weight:800;
+.week-day-header {
+  font-weight: 800;
   border-bottom: 1px solid white;
-  text-align:center;
-  padding-bottom:10px;
-  margin-bottom:10px;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.day-number{
-  text-align:center;
+.day-number {
+  text-align: center;
 }
-
